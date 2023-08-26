@@ -1,0 +1,22 @@
+listen_for_command() Function:
+This function is responsible for capturing audio from the microphone, recognizing the speech using Google's speech recognition API, and returning the recognized command as text.
+
+recognizer = sr.Recognizer(): This initializes a speech recognizer object.
+
+with sr.Microphone() as source:: This context manager sets up the microphone as the audio source for capturing speech.
+
+audio = recognizer.listen(source): The recognizer listens to the audio from the source (microphone) and captures it.
+
+Speech Recognition and Error Handling:
+
+recognizer.recognize_google(audio): This line attempts to recognize the captured audio using Google's speech recognition service.
+The try block handles recognition success and failure. If recognition is successful, the recognized speech is converted to lowercase and returned as the recognized command. If there's an "UnknownValueError," it means the speech couldn't be understood, and an empty string is returned. If there's a "RequestError," it means there was an issue connecting to the speech recognition service, and an empty string is returned.
+respond_with_text(text) Function:
+This function generates a spoken response using the gTTS library and plays the generated audio.
+
+tts = gTTS(text): This creates a gTTS (Google Text-to-Speech) object with the given text.
+
+tts.save("response.mp3"): The generated speech is saved as an MP3 file named "response.mp3."
+
+os.system("start response.mp3"): The OS-level command opens the generated MP3 file, effectively playing the response as audio.
+Run your script, and it will listen for your voice commands, recognize them, and respond accordingly
